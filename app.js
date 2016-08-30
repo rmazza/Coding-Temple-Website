@@ -5,18 +5,20 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static(__dirname + '/views'));
+app.use('/', express.static(__dirname + '/views'));
 app.use('/assets', express.static(__dirname + '/public'));
 
-app.use('/', (req,res,next) =>{
-    console.log('Request URL: ' + req.url);
-    next();
+app.use('/', (err,req,res,next) =>{
+    if(err){
+        console.log(err);
+        res.send("Something went wrong!");
+    }else{
+        console.log('Request URL: ' + req.url)
+        next();
+    }
 });
 
-/*app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
-});
-*/
+
 app.get('/:name', (req, res, next) => {
 
     var options = {
@@ -28,10 +30,11 @@ app.get('/:name', (req, res, next) => {
         }
     };
 
-    var fileName = req.params.name;
+    var fileName = req.params.name + ".html";
     res.sendFile(fileName, options, function(err) {
         if(err){
             console.log(err);
+            res.send("404 - PAGE DOES NOT EXIST");
             res.status(err.status).end();
         }else{
             console.log('Sent: ', fileName);
