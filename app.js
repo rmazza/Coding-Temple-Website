@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 
 const app = express();
@@ -6,21 +8,38 @@ const port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/views'));
 app.use('/assets', express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
-    res.sendFile('index.html');
+app.use('/', (req,res,next) =>{
+    console.log('Request URL: ' + req.url);
+    next();
 });
 
-app.get('/courses.html', (req, res) => {
-    res.sendFile('courses.html');
+/*app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/views/index.html');
 });
+*/
+app.get('/:name', (req, res, next) => {
 
-app.get('/students.html', (req, res) => {
-    res.sendFile('students.html');
-});
+    var options = {
+        root: __dirname + '/views/',
+        dotfiles: 'deny',
+        header: {
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    };
 
-app.get('/apply', (req,res) => {
-    res.sendFile(__dirname + '/views/apply.html');
-});
+    var fileName = req.params.name;
+    res.sendFile(fileName, options, function(err) {
+        if(err){
+            console.log(err);
+            res.status(err.status).end();
+        }else{
+            console.log('Sent: ', fileName);
+        }
+        
+    });
+
+})
 
 app.listen(port, (err) => {
     if(err) {
