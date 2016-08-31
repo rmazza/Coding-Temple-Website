@@ -19,7 +19,7 @@ app.use('/', (err,req,res,next) =>{
 });
 
 
-app.get('/:name', (req, res, next) => {
+app.get('/cs/:name', (req, res, next) => {
 
     var options = {
         root: __dirname + '/views/',
