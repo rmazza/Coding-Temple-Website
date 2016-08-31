@@ -32,6 +32,7 @@ h2, h3, h4 {
 
 header a {
     text-decoration: none;
+    color:black;
 }
 
 header li{
@@ -43,23 +44,43 @@ header li:hover{
     color: #45a2da;
 }
 
-header li a {
-    color:black;
-}
-
-/*
-header a:hover {
-    color: #45a2da;
-}
-*/
-/*
-nav {
-    text-align: right;
-}
-*/
-
 article p {
     color: #848484;
+}
+
+.alt-link {
+    background-color: black;
+}
+
+.alt-link a {
+    color: white;
+}
+
+.col-1-2 {
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 50%
+}
+
+.col-2-3 {
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 67%;
+}
+
+.col-1-3 {
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
+    width: 33%;
+}
+
+.clearfix:after{
+    content: "";
+    display: table;
+    clear: both;
 }
 
 footer{
@@ -70,12 +91,27 @@ footer{
 
 footer h3{
     color: #848484;
+    font-size: 20px;
 }
 
-.alt-link {
-    background-color: black;
+footer ul {
+    padding-left: 0;
 }
 
-.alt-link a {
+footer li {
+    display: inline;
+    font-size: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer p {
+    color: #848484;
+}
+
+span.bull {
     color: white;
 }
